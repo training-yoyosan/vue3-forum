@@ -21,6 +21,12 @@ const routes = [
     name: "Test",
     component: () => import("@/views/Test"),
   },
+  {
+    path: "/thread/:id",
+    name: "ThreadShow",
+    component: () => import("@/components/PageThreadShow"),
+    props: true,
+  },
 ];
 
 const router = createRouter({
