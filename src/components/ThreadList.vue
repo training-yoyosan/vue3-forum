@@ -10,8 +10,9 @@
               >{{ thread.title }}
             </router-link>
           </p>
-          <p class="text-faded text-xsmall">
-            By <a href="#">{{ userById(thread.userId).name }}</a>
+          <p class="text-faded text-xsmall text-left">
+            By <a href="#">{{ userById(thread.userId).name }}</a
+            >&nbsp;
             <app-date :timestamp="thread.publishedAt" />
           </p>
         </div>
@@ -45,7 +46,6 @@
 
 <script>
 import sourceData from "@/data.json";
-import AppDate from "@/components/AppDate";
 
 export default {
   name: "ThreadList",
@@ -55,10 +55,6 @@ export default {
       type: Array,
       required: true,
     },
-  },
-
-  components: {
-    AppDate,
   },
 
   data() {
