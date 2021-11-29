@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import { v4 } from "uuid";
-
 export default {
   name: "PostEditor",
 
@@ -34,10 +32,7 @@ export default {
 
   methods: {
     addPost() {
-      const id = v4();
-
       const post = {
-        id,
         text: this.text,
         publishedAt: Math.floor(Date.now() / 1000),
         userId: "Miej9zSGMRZKDvMXzfxjVOyv3RF3",
