@@ -16,7 +16,6 @@
 
 <script>
 import ThreadList from "@/components/ThreadList";
-import sourceData from "@/data.json";
 
 export default {
   name: "Forum",
@@ -29,10 +28,10 @@ export default {
   },
   computed: {
     forum() {
-      return sourceData.forums.find((fm) => fm.id === this.id);
+      return this.$store.state.forums.find((fm) => fm.id === this.id);
     },
     forumThreads() {
-      return sourceData.threads.filter((th) => th.forumId === this.id);
+      return this.$store.state.threads.filter((th) => th.forumId === this.id);
     },
   },
 };

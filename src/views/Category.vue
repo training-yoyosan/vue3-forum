@@ -10,7 +10,6 @@
 
 <script>
 import CategoryList from "@/components/CategoryList";
-import sourceData from "@/data.json";
 
 export default {
   name: "Category",
@@ -26,7 +25,7 @@ export default {
 
   computed: {
     category() {
-      return sourceData.categories.find((cat) => cat.id === this.id);
+      return this.$store.state.categories.find((cat) => cat.id === this.id);
     },
   },
 
