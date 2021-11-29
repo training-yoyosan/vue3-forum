@@ -3,6 +3,7 @@ import Home from "@/views/Home";
 import NotFound from "@/views/NotFound";
 import sourceData from "@/data.json";
 import Forum from "@/views/Forum";
+import Category from "@/views/Category";
 
 const routes = [
   {
@@ -23,6 +24,28 @@ const routes = [
     path: "/test",
     name: "Test",
     component: () => import("@/views/Test"),
+  },
+  {
+    path: "/category/:id",
+    name: "Category",
+    component: Category,
+    props: true,
+    beforeEnter(to, from, next) {
+      const categoryExists = sourceData.categories.find(
+        (category) => category.id === to.params.id
+      );
+
+      if (categoryExists) {
+        next();
+      } else {
+        next({
+          name: "NotFound",
+          params: { pathMatch: to.path.substring(1).split("/") },
+          query: to.query,
+          hash: to.hash,
+        });
+      }
+    },
   },
   {
     path: "/forum/:id",
