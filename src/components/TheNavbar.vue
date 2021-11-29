@@ -18,11 +18,11 @@
           <a href="#">
             <img
               class="avatar-small"
-              src="https://pbs.twimg.com/profile_images/1188775562657091594/5mgkg44t_400x400.jpg"
-              alt=""
+              :src="authUser.avatar"
+              :alt="`${authUser.name} profile picture`"
             />
             <span>
-              Alex Kyriakidis
+              {{ authUser.name }}
               <img
                 class="icon-profile"
                 src="../assets/svg/arrow-profile.svg"
@@ -71,8 +71,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "TheNavbar",
+
+  computed: {
+    ...mapGetters(["authUser"]),
+  },
 };
 </script>
 

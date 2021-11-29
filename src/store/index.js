@@ -3,7 +3,10 @@ import sourceData from "@/data.json";
 import { v4 } from "uuid";
 
 export default createStore({
-  state: sourceData,
+  state: {
+    ...sourceData,
+    authId: "VXjpr2WHa8Ux4Bnggym8QFLdv5C3",
+  },
   mutations: {
     setPost(state, { post }) {
       state.posts.push(post);
@@ -21,6 +24,9 @@ export default createStore({
         threadId: post.threadId,
       });
     },
+  },
+  getters: {
+    authUser: (state) => state.users.find((usr) => usr.id === state.authId),
   },
   modules: {},
 });
