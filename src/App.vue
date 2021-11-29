@@ -1,11 +1,5 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link>
-    |
-    <router-link to="/about">About</router-link>
-    |
-    <router-link to="/test">Test</router-link>
-  </div>
+  <the-navbar />
   <div class="container">
     <router-view />
   </div>
@@ -35,3 +29,10 @@
   color: #42b983;
 }
 </style>
+<script>
+import TheNavbar from "@/components/TheNavbar";
+
+export default {
+  components: { TheNavbar },
+};
+</script>
