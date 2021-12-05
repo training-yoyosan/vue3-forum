@@ -9,7 +9,7 @@ export default createStore({
   },
 
   mutations: {
-    setPost(state, { post }) {
+    setPost(state, post) {
       state.posts.push(post);
     },
     setUser(state, { user }) {
@@ -22,10 +22,13 @@ export default createStore({
   },
 
   actions: {
-    createPost(context, { post }) {
+    createPost({ commit, state }, post) {
       post.id = v4();
-      context.commit("setPost", { post });
-      context.commit("appendPostToThread", {
+      post.userId = state.authId;
+      post.publishedAt = Math.floor(Date.now() / 1000);
+
+      commit("setPost", post);
+      commit("appendPostToThread", {
         postId: post.id,
         threadId: post.threadId,
       });

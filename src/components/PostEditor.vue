@@ -34,8 +34,6 @@ export default {
     addPost() {
       const post = {
         text: this.text,
-        publishedAt: Math.floor(Date.now() / 1000),
-        userId: "Miej9zSGMRZKDvMXzfxjVOyv3RF3",
       };
 
       this.$emit("save", { post });
