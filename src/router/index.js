@@ -87,6 +87,12 @@ const routes = [
       }
     },
   },
+  {
+    path: "/forum/:forumId/thread/create",
+    name: "ThreadCreate",
+    component: () => import("@/views/ThreadCreate"),
+    props: true,
+  },
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
 ];
 
