@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { findById } from "@/helpers";
+
 export default {
   name: "PostList",
 
@@ -49,7 +51,7 @@ export default {
 
   methods: {
     userById(userId) {
-      return this.users.find((p) => p.id === userId);
+      return findById(this.users, userId);
     },
   },
 };

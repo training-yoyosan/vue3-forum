@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import sourceData from "@/data.json";
 import { v4 } from "uuid";
+import { findById, upsert } from "@/helpers";
 
 export default createStore({
   state: {
@@ -10,37 +11,27 @@ export default createStore({
 
   mutations: {
     setPost(state, { post }) {
-      const index = state.posts.findIndex((p) => p.id === post.id);
-      if (post && index !== -1) {
-        state.posts[index] = post;
-      } else {
-        state.posts.push(post);
-      }
+      upsert(state.posts, post);
     },
     setUser(state, { user }) {
       const userIndex = state.users.findIndex((usr) => usr.id === user.id);
       state.users[userIndex] = user;
     },
     setThread(state, { thread }) {
-      const index = state.threads.findIndex((t) => t.id === thread.id);
-      if (thread && index !== -1) {
-        state.threads[index] = thread;
-      } else {
-        state.threads.push(thread);
-      }
+      upsert(state.threads, thread);
     },
     appendPostToThread(state, { postId, threadId }) {
-      const thread = state.threads.find((thr) => thr.id === threadId);
+      const thread = findById(state.threads, threadId);
       thread.posts = thread.posts || [];
       thread.posts.push(postId);
     },
     appendThreadToForum(state, { forumId, threadId }) {
-      const forum = state.forums.find((forum) => forum.id === forumId);
+      const forum = findById(state.forums, forumId);
       forum.threads = forum.threads || [];
       forum.threads.push(threadId);
     },
     appendThreadToUser(state, { userId, threadId }) {
-      const user = state.forums.find((user) => user.id === userId);
+      const user = findById(state.users, userId);
       user.threads = user.threads || [];
       user.threads.push(threadId);
     },
@@ -67,11 +58,11 @@ export default createStore({
       commit("setThread", { thread });
       dispatch("createPost", { text, threadId: id });
 
-      return state.threads.find((thread) => thread.id === id);
+      return findById(state.threads, id);
     },
     async updateThread({ commit, state }, { text, title, threadId }) {
-      const thread = state.threads.find((thread) => thread.id === threadId);
-      const post = state.posts.find((post) => post.id === thread.posts[0]);
+      const thread = findById(state.threads, threadId);
+      const post = findById(state.posts, thread.posts[0]);
       const newThread = { ...thread, title };
       const newPost = { ...post, text };
 
@@ -87,7 +78,7 @@ export default createStore({
 
   getters: {
     authUser: (state) => {
-      const user = state.users.find((usr) => usr.id === state.authId);
+      const user = findById(state.users, state.authId);
 
       if (!user) return null;
 

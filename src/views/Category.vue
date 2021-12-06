@@ -10,6 +10,7 @@
 
 <script>
 import CategoryList from "@/components/CategoryList";
+import { findById } from "@/helpers";
 
 export default {
   name: "Category",
@@ -25,7 +26,7 @@ export default {
 
   computed: {
     category() {
-      return this.$store.state.categories.find((cat) => cat.id === this.id);
+      return findById(this.$store.state.categories, this.id);
     },
   },
 

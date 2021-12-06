@@ -12,6 +12,7 @@
 
 <script>
 import ForumList from "@/components/ForumList";
+import { findById } from "@/helpers";
 
 export default {
   name: "CategoryList",
@@ -28,7 +29,7 @@ export default {
   methods: {
     getForums(category) {
       return category.forums.map((forumId) =>
-        this.$store.state.forums.find((forum) => forum.id === forumId)
+        findById(this.$store.state.forums, forumId)
       );
     },
   },
