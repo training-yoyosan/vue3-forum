@@ -3,7 +3,7 @@
     <div class="form-group">
       <label for="thread_title">Title:</label>
       <input
-        v-model="title"
+        v-model="thread.title"
         type="text"
         id="thread_title"
         class="form-input"
@@ -14,7 +14,7 @@
     <div class="form-group">
       <label for="thread_content">Content:</label>
       <textarea
-        v-model="text"
+        v-model="thread.text"
         id="thread_content"
         class="form-input"
         name="content"
@@ -36,16 +36,29 @@
 export default {
   name: "ThreadEditor",
 
+  props: {
+    title: {
+      type: String,
+      default: "",
+    },
+    text: {
+      type: String,
+      default: "",
+    },
+  },
+
   data() {
     return {
-      title: "",
-      text: "",
+      thread: {
+        title: this.title,
+        text: this.text,
+      },
     };
   },
 
   methods: {
     save() {
-      this.$emit("save", { text: this.text, title: this.title });
+      this.$emit("save", { ...this.thread });
     },
   },
 };

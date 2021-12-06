@@ -93,6 +93,12 @@ const routes = [
     component: () => import("@/views/ThreadCreate"),
     props: true,
   },
+  {
+    path: "/thread/:id/edit",
+    name: "ThreadEdit",
+    component: () => import("@/views/ThreadEdit"),
+    props: true,
+  },
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
 ];
 
