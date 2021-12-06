@@ -1,6 +1,15 @@
 <template>
   <div class="col-large push-top">
-    <h1>{{ thread.title }}</h1>
+    <h1>
+      {{ thread.title }}
+      <router-link
+        :to="{ name: 'ThreadEdit', params: { id: this.id } }"
+        class="btn-green btn-small"
+        tag="button"
+      >
+        Edit
+      </router-link>
+    </h1>
 
     <post-list :posts="threadPosts" />
 

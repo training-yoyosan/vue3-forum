@@ -27,7 +27,9 @@
       <button class="btn btn-ghost" type="reset" @click="$emit('cancel')">
         Cancel
       </button>
-      <button class="btn btn-blue" type="submit" name="Publish">Publish</button>
+      <button class="btn btn-blue" type="submit" name="Publish">
+        {{ existing ? "Update" : "Publish" }}
+      </button>
     </div>
   </form>
 </template>
@@ -44,6 +46,12 @@ export default {
     text: {
       type: String,
       default: "",
+    },
+  },
+
+  computed: {
+    existing() {
+      return !!this.title;
     },
   },
 
