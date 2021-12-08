@@ -37,7 +37,9 @@ export default {
       return findById(this.$store.state.forums, this.id);
     },
     forumThreads() {
-      return this.$store.state.threads.filter((th) => th.forumId === this.id);
+      return this.$store.state.threads.map((th) =>
+        this.$store.getters.thread(th.id)
+      );
     },
   },
 };

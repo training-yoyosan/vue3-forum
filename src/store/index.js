@@ -84,26 +84,29 @@ export default createStore({
   },
 
   getters: {
-    authUser: (state) => {
-      const user = findById(state.users, state.authId);
+    authUser: (state, getters) => getters.user(state.authId),
+    user: (state) => {
+      return (id) => {
+        const user = findById(state.users, id);
 
-      if (!user) return null;
+        if (!user) return null;
 
-      return {
-        ...user,
-        // can be accessed as a property, authUser.posts
-        get posts() {
-          return state.posts.filter((post) => post.userId === user.id);
-        },
-        get postsCount() {
-          return this.posts.length;
-        },
-        get threads() {
-          return state.threads.filter((thread) => thread.userId === user.id);
-        },
-        get threadsCount() {
-          return this.threads.length;
-        },
+        return {
+          ...user,
+          // can be accessed as a property, authUser.posts
+          get posts() {
+            return state.posts.filter((post) => post.userId === user.id);
+          },
+          get postsCount() {
+            return this.posts.length;
+          },
+          get threads() {
+            return state.threads.filter((thread) => thread.userId === user.id);
+          },
+          get threadsCount() {
+            return this.threads.length;
+          },
+        };
       };
     },
     thread: (state) => {
@@ -118,7 +121,7 @@ export default createStore({
             return thread.posts.length - 1;
           },
           get contributorsCount() {
-            return thread.contributors.length;
+            return thread.contributors?.length;
           },
         };
       };

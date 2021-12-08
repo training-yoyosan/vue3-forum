@@ -19,8 +19,8 @@
 
         <div class="activity">
           <p class="replies-count">
-            {{ thread.posts.length }} repl{{
-              thread.posts.length > 1 ? "ies" : "y"
+            {{ thread.repliesCount }} repl{{
+              thread.repliesCount > 1 ? "ies" : "y"
             }}
           </p>
 
@@ -45,8 +45,6 @@
 </template>
 
 <script>
-import { findById } from "@/helpers";
-
 export default {
   name: "ThreadList",
 
@@ -68,7 +66,7 @@ export default {
 
   methods: {
     userById(userId) {
-      return findById(this.users, userId);
+      return this.$store.getters.user(userId);
     },
   },
 };
