@@ -14,6 +14,9 @@ export default createStore({
   },
 
   mutations: {
+    setItem(state, { resource, item }) {
+      upsert(state[resource], item);
+    },
     setPost(state, { post }) {
       upsert(state.posts, post);
     },
@@ -84,46 +87,26 @@ export default createStore({
     updateUser({ commit }, user) {
       commit("setUser", { user });
     },
-    fetchThread({ commit }, { id }) {
-      console.log("🔥📄", id);
-
-      return new Promise((resolve) => {
-        firebase
-          .firestore()
-          .collection("threads")
-          .doc(id)
-          .onSnapshot((doc) => {
-            const thread = { ...doc.data(), id: doc.id };
-            commit("setThread", { thread });
-            resolve(thread);
-          });
-      });
+    fetchThread({ dispatch }, { id }) {
+      return dispatch("fetchItem", { resource: "threads", id, emoji: "📄" });
     },
-    fetchUser({ commit }, { id }) {
-      console.log("🔥🙋", id);
-      return new Promise((resolve) => {
-        firebase
-          .firestore()
-          .collection("users")
-          .doc(id)
-          .onSnapshot((doc) => {
-            const user = { ...doc.data(), id: doc.id };
-            commit("setUser", { user });
-            resolve(user);
-          });
-      });
+    fetchUser({ dispatch }, { id }) {
+      return dispatch("fetchItem", { resource: "users", id, emoji: "🙋" });
     },
-    fetchPost({ commit }, { id }) {
-      console.log("🔥💬", id);
+    fetchPost({ dispatch }, { id }) {
+      return dispatch("fetchItem", { resource: "posts", id, emoji: "💬" });
+    },
+    fetchItem({ commit }, { resource, id, emoji }) {
+      console.log("🔥", emoji, id);
       return new Promise((resolve) => {
         firebase
           .firestore()
-          .collection("posts")
+          .collection(resource)
           .doc(id)
           .onSnapshot((doc) => {
-            const post = { ...doc.data(), id: doc.id };
-            commit("setPost", { post });
-            resolve(post);
+            const item = { ...doc.data(), id: doc.id };
+            commit("setItem", { resource, item });
+            resolve(item);
           });
       });
     },
