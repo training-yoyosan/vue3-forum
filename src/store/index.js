@@ -1,11 +1,14 @@
 import { createStore } from "vuex";
-import sourceData from "@/data.json";
 import { v4 } from "uuid";
 import { findById, upsert } from "@/helpers";
 
 export default createStore({
   state: {
-    ...sourceData,
+    categories: [],
+    forums: [],
+    threads: [],
+    posts: [],
+    users: [],
     authId: "VXjpr2WHa8Ux4Bnggym8QFLdv5C3",
   },
 
@@ -14,8 +17,7 @@ export default createStore({
       upsert(state.posts, post);
     },
     setUser(state, { user }) {
-      const userIndex = state.users.findIndex((usr) => usr.id === user.id);
-      state.users[userIndex] = user;
+      upsert(state.users, user);
     },
     setThread(state, { thread }) {
       upsert(state.threads, thread);
