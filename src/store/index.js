@@ -110,6 +110,21 @@ export default createStore({
           });
       });
     },
+    fetchThreads({ dispatch }, { ids }) {
+      return dispatch("fetchItems", { resource: "threads", ids, emoji: "📄" });
+    },
+    fetchUsers({ dispatch }, { ids }) {
+      return dispatch("fetchItems", { resource: "users", ids, emoji: "🙋" });
+    },
+    fetchPosts({ dispatch }, { ids }) {
+      return dispatch("fetchItems", { resource: "posts", ids, emoji: "💬" });
+    },
+    fetchItems({ dispatch }, { ids, resource, emoji }) {
+      // resolves all promises before returning the array
+      return Promise.all(
+        ids.map((id) => dispatch("fetchItem", { id, resource, emoji }))
+      );
+    },
   },
 
   getters: {
