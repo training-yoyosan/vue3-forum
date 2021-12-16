@@ -125,6 +125,25 @@ export default createStore({
         ids.map((id) => dispatch("fetchItem", { id, resource, emoji }))
       );
     },
+    fetchAllCategories({ commit }) {
+      console.log("🔥", "🏷", "all");
+      return new Promise((resolve) => {
+        firebase
+          .firestore()
+          .collection("categories")
+          .onSnapshot(async (querySnap) => {
+            const categories = querySnap.docs.map((doc) => {
+              const item = { id: doc.id, ...doc.data() };
+              commit("setItem", { resource: "categories", item });
+              return item;
+            });
+            resolve(categories);
+          });
+      });
+    },
+    fetchForums({ dispatch }, { ids }) {
+      return dispatch("fetchItems", { resource: "forums", ids, emoji: "🏁" });
+    },
   },
 
   getters: {

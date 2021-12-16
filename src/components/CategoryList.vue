@@ -28,9 +28,22 @@ export default {
 
   methods: {
     getForums(category) {
-      return category.forums.map((forumId) =>
+      if (this.$store.state.forums.length === 0) {
+        return [];
+      }
+
+      let forums = category.forums.map((forumId) =>
         findById(this.$store.state.forums, forumId)
       );
+
+      for (const forum of forums) {
+        if (forum === undefined) {
+          forums = [];
+          break;
+        }
+      }
+
+      return forums;
     },
   },
 };
