@@ -66,7 +66,7 @@ export default {
 
   methods: {
     userById(userId) {
-      return this.$store.getters.user(userId);
+      return this.$store.getters.user(userId) || {};
     },
   },
 };

@@ -87,6 +87,9 @@ export default createStore({
     updateUser({ commit }, user) {
       commit("setUser", { user });
     },
+    fetchForum({ dispatch }, { id }) {
+      return dispatch("fetchItem", { resource: "forums", id, emoji: "🏁" });
+    },
     fetchThread({ dispatch }, { id }) {
       return dispatch("fetchItem", { resource: "threads", id, emoji: "📄" });
     },

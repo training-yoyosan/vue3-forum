@@ -1,6 +1,6 @@
 <template>
   <div class="col-full push-top">
-    <div class="forum-header text-left">
+    <div v-if="forum" class="forum-header text-left">
       <div class="forum-details">
         <h1>{{ forum.name }}</h1>
         <p class="text-lead">{{ forum.description }}</p>
@@ -41,6 +41,16 @@ export default {
         this.$store.getters.thread(th.id)
       );
     },
+  },
+
+  async created() {
+    const forum = await this.$store.dispatch("fetchForum", { id: this.id });
+    const threads = await this.$store.dispatch("fetchThreads", {
+      ids: forum.threads,
+    });
+    this.$store.dispatch("fetchUsers", {
+      ids: threads.map((t) => t.userId),
+    });
   },
 };
 </script>
