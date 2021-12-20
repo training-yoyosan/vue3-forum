@@ -87,17 +87,23 @@ export default createStore({
     updateUser({ commit }, user) {
       commit("setUser", { user });
     },
+    // ---------------------------------------
+    // Fetch Single Resource
+    // ---------------------------------------
+    fetchCategory({ dispatch }, { id }) {
+      return dispatch("fetchItem", { emoji: "🏷", resource: "categories", id });
+    },
     fetchForum({ dispatch }, { id }) {
       return dispatch("fetchItem", { resource: "forums", id, emoji: "🏁" });
     },
     fetchThread({ dispatch }, { id }) {
       return dispatch("fetchItem", { resource: "threads", id, emoji: "📄" });
     },
-    fetchUser({ dispatch }, { id }) {
-      return dispatch("fetchItem", { resource: "users", id, emoji: "🙋" });
-    },
     fetchPost({ dispatch }, { id }) {
       return dispatch("fetchItem", { resource: "posts", id, emoji: "💬" });
+    },
+    fetchUser({ dispatch }, { id }) {
+      return dispatch("fetchItem", { resource: "users", id, emoji: "🙋" });
     },
     fetchItem({ commit }, { resource, id, emoji }) {
       console.log("🔥", emoji, id);
@@ -113,21 +119,9 @@ export default createStore({
           });
       });
     },
-    fetchThreads({ dispatch }, { ids }) {
-      return dispatch("fetchItems", { resource: "threads", ids, emoji: "📄" });
-    },
-    fetchUsers({ dispatch }, { ids }) {
-      return dispatch("fetchItems", { resource: "users", ids, emoji: "🙋" });
-    },
-    fetchPosts({ dispatch }, { ids }) {
-      return dispatch("fetchItems", { resource: "posts", ids, emoji: "💬" });
-    },
-    fetchItems({ dispatch }, { ids, resource, emoji }) {
-      // resolves all promises before returning the array
-      return Promise.all(
-        ids.map((id) => dispatch("fetchItem", { id, resource, emoji }))
-      );
-    },
+    // ---------------------------------------
+    // Fetch All of a Resource
+    // ---------------------------------------
     fetchAllCategories({ commit }) {
       console.log("🔥", "🏷", "all");
       return new Promise((resolve) => {
@@ -144,8 +138,33 @@ export default createStore({
           });
       });
     },
+    // ---------------------------------------
+    // Fetch Multiple Resources
+    // ---------------------------------------
+    fetchCategories({ dispatch }, { ids }) {
+      return dispatch("fetchItems", {
+        resource: "categories",
+        ids,
+        emoji: "🏷",
+      });
+    },
     fetchForums({ dispatch }, { ids }) {
       return dispatch("fetchItems", { resource: "forums", ids, emoji: "🏁" });
+    },
+    fetchThreads({ dispatch }, { ids }) {
+      return dispatch("fetchItems", { resource: "threads", ids, emoji: "📄" });
+    },
+    fetchPosts({ dispatch }, { ids }) {
+      return dispatch("fetchItems", { resource: "posts", ids, emoji: "💬" });
+    },
+    fetchUsers({ dispatch }, { ids }) {
+      return dispatch("fetchItems", { resource: "users", ids, emoji: "🙋" });
+    },
+    fetchItems({ dispatch }, { ids, resource, emoji }) {
+      // resolves all promises before returning the array
+      return Promise.all(
+        ids.map((id) => dispatch("fetchItem", { id, resource, emoji }))
+      );
     },
   },
 
