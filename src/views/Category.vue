@@ -1,10 +1,10 @@
 <template>
   <div class="col-full push-top">
-    <h1>{{ category.name }}</h1>
+    <h1>{{ category?.name }}</h1>
   </div>
 
   <div class="col-full">
-    <CategoryList :categories="[category]" />
+    <CategoryList :categories="category ? [category] : []" />
   </div>
 </template>
 
@@ -26,11 +26,16 @@ export default {
 
   computed: {
     category() {
-      return findById(this.$store.state.categories, this.id);
+      return findById(this.$store.state.categories, this.id) || undefined;
     },
   },
 
-  methods: {},
+  async created() {
+    const category = await this.$store.dispatch("fetchCategory", {
+      id: this.id,
+    });
+    this.$store.dispatch("fetchForums", { ids: category.forums });
+  },
 };
 </script>
 

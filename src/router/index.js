@@ -70,7 +70,7 @@ const routes = [
     name: "ThreadShow",
     component: () => import("@/views/ThreadShow"),
     props: true,
-    beforeEnter(to, from, next) {
+    /*beforeEnter(to, from, next) {
       const threadExists = sourceData.threads.find(
         (thread) => thread.id === to.params.id
       );
@@ -85,7 +85,7 @@ const routes = [
           hash: to.hash,
         });
       }
-    },
+    },*/
   },
   {
     path: "/forum/:forumId/thread/create",

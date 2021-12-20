@@ -1,5 +1,5 @@
 <template>
-  <div class="col-full push-top">
+  <div v-if="forum" class="col-full push-top">
     <h1>
       Create new thread in <i>{{ forum.name }}</i>
     </h1>
@@ -24,7 +24,7 @@ export default {
 
   computed: {
     forum() {
-      return findById(this.$store.state.forums, this.forumId);
+      return findById(this.$store.state.forums, this.forumId) || undefined;
     },
   },
 
@@ -41,6 +41,10 @@ export default {
     cancel() {
       this.$router.push({ name: "Forum", params: { id: this.forum.id } });
     },
+  },
+
+  created() {
+    this.$store.dispatch("fetchForum", { id: this.forumId });
   },
 };
 </script>
