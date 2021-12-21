@@ -48,21 +48,16 @@ export default {
   // ---------------------------------------
   // Fetch Single Resource
   // ---------------------------------------
-  fetchCategory({ dispatch }, { id }) {
-    return dispatch("fetchItem", { emoji: "🏷", resource: "categories", id });
-  },
-  fetchForum({ dispatch }, { id }) {
-    return dispatch("fetchItem", { resource: "forums", id, emoji: "🏁" });
-  },
-  fetchThread({ dispatch }, { id }) {
-    return dispatch("fetchItem", { resource: "threads", id, emoji: "📄" });
-  },
-  fetchPost({ dispatch }, { id }) {
-    return dispatch("fetchItem", { resource: "posts", id, emoji: "💬" });
-  },
-  fetchUser({ dispatch }, { id }) {
-    return dispatch("fetchItem", { resource: "users", id, emoji: "🙋" });
-  },
+  fetchCategory: ({ dispatch }, { id }) =>
+    dispatch("fetchItem", { emoji: "🏷", resource: "categories", id }),
+  fetchForum: ({ dispatch }, { id }) =>
+    dispatch("fetchItem", { resource: "forums", id, emoji: "🏁" }),
+  fetchThread: ({ dispatch }, { id }) =>
+    dispatch("fetchItem", { resource: "threads", id, emoji: "📄" }),
+  fetchPost: ({ dispatch }, { id }) =>
+    dispatch("fetchItem", { resource: "posts", id, emoji: "💬" }),
+  fetchUser: ({ dispatch }, { id }) =>
+    dispatch("fetchItem", { resource: "users", id, emoji: "🙋" }),
   fetchItem({ commit }, { resource, id, emoji }) {
     console.log("🔥", emoji, id);
     return new Promise((resolve) => {
@@ -99,25 +94,20 @@ export default {
   // ---------------------------------------
   // Fetch Multiple Resources
   // ---------------------------------------
-  fetchCategories({ dispatch }, { ids }) {
-    return dispatch("fetchItems", {
+  fetchCategories: ({ dispatch }, { ids }) =>
+    dispatch("fetchItems", {
       resource: "categories",
       ids,
       emoji: "🏷",
-    });
-  },
-  fetchForums({ dispatch }, { ids }) {
-    return dispatch("fetchItems", { resource: "forums", ids, emoji: "🏁" });
-  },
-  fetchThreads({ dispatch }, { ids }) {
-    return dispatch("fetchItems", { resource: "threads", ids, emoji: "📄" });
-  },
-  fetchPosts({ dispatch }, { ids }) {
-    return dispatch("fetchItems", { resource: "posts", ids, emoji: "💬" });
-  },
-  fetchUsers({ dispatch }, { ids }) {
-    return dispatch("fetchItems", { resource: "users", ids, emoji: "🙋" });
-  },
+    }),
+  fetchForums: ({ dispatch }, { ids }) =>
+    dispatch("fetchItems", { resource: "forums", ids, emoji: "🏁" }),
+  fetchThreads: ({ dispatch }, { ids }) =>
+    dispatch("fetchItems", { resource: "threads", ids, emoji: "📄" }),
+  fetchPosts: ({ dispatch }, { ids }) =>
+    dispatch("fetchItems", { resource: "posts", ids, emoji: "💬" }),
+  fetchUsers: ({ dispatch }, { ids }) =>
+    dispatch("fetchItems", { resource: "users", ids, emoji: "🙋" }),
   fetchItems({ dispatch }, { ids, resource, emoji }) {
     // resolves all promises before returning the array
     return Promise.all(
