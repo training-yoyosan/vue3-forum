@@ -11,6 +11,7 @@
 <script>
 import CategoryList from "@/components/CategoryList";
 import { findById } from "@/helpers";
+import { mapActions } from "vuex";
 
 export default {
   name: "Category",
@@ -30,11 +31,15 @@ export default {
     },
   },
 
+  methods: {
+    ...mapActions(["fetchCategory", "fetchForums"]),
+  },
+
   async created() {
-    const category = await this.$store.dispatch("fetchCategory", {
+    const category = await this.fetchCategory({
       id: this.id,
     });
-    this.$store.dispatch("fetchForums", { ids: category.forums });
+    this.fetchForums({ ids: category.forums });
   },
 };
 </script>

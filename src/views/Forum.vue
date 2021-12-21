@@ -22,6 +22,7 @@
 <script>
 import ThreadList from "@/components/ThreadList";
 import { findById } from "@/helpers";
+import { mapActions } from "vuex";
 
 export default {
   name: "Forum",
@@ -43,12 +44,16 @@ export default {
     },
   },
 
+  methods: {
+    ...mapActions(["fetchForum", "fetchThreads", "fetchUsers"]),
+  },
+
   async created() {
-    const forum = await this.$store.dispatch("fetchForum", { id: this.id });
-    const threads = await this.$store.dispatch("fetchThreads", {
+    const forum = await this.fetchForum({ id: this.id });
+    const threads = await this.fetchThreads({
       ids: forum.threads,
     });
-    this.$store.dispatch("fetchUsers", {
+    this.fetchUsers({
       ids: threads.map((t) => t.userId),
     });
   },

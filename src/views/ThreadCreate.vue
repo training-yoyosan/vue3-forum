@@ -11,6 +11,7 @@
 <script>
 import ThreadEditor from "@/components/ThreadEditor";
 import { findById } from "@/helpers";
+import { mapActions } from "vuex";
 
 export default {
   name: "ThreadCreate",
@@ -29,8 +30,10 @@ export default {
   },
 
   methods: {
+    ...mapActions(["createThread", "fetchForum"]),
+
     async save({ title, text }) {
-      const thread = await this.$store.dispatch("createThread", {
+      const thread = await this.createThread({
         forumId: this.forum.id,
         title,
         text,
@@ -44,7 +47,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch("fetchForum", { id: this.forumId });
+    this.fetchForum({ id: this.forumId });
   },
 };
 </script>
