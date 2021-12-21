@@ -58,6 +58,8 @@ export default {
     dispatch("fetchItem", { resource: "posts", id, emoji: "💬" }),
   fetchUser: ({ dispatch }, { id }) =>
     dispatch("fetchItem", { resource: "users", id, emoji: "🙋" }),
+  fetchAuthUser: ({ dispatch, state }) =>
+    dispatch("fetchUser", { id: state.authId }),
   fetchItem({ commit }, { resource, id, emoji }) {
     console.log("🔥", emoji, id);
     return new Promise((resolve) => {
