@@ -1,6 +1,6 @@
 <template>
-  <span :title="dateForHumans(timestamp)">
-    {{ diffForHumans(timestamp) }}
+  <span :title="dateForHumans">
+    {{ diffForHumans }}
   </span>
 </template>
 
@@ -18,16 +18,19 @@ export default {
   props: {
     timestamp: {
       required: true,
-      type: Number,
+      type: [Number, Object],
     },
   },
 
-  methods: {
-    diffForHumans(timestamp) {
-      return dayjs.unix(timestamp).fromNow();
+  computed: {
+    normalizedTimestamp() {
+      return this.timestamp?.seconds || this.timestamp;
     },
-    dateForHumans(timestamp) {
-      return dayjs.unix(timestamp).format("llll");
+    diffForHumans() {
+      return dayjs.unix(this.normalizedTimestamp).fromNow();
+    },
+    dateForHumans() {
+      return dayjs.unix(this.normalizedTimestamp).format("llll");
     },
   },
 };
