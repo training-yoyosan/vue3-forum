@@ -4,12 +4,14 @@ import router from "./router";
 import store from "./store";
 import firebase from "firebase";
 import firebaseConfig from "@/config/firebase";
+import FontAwesome from "@/plugins/FontAwesome";
 
 firebase.initializeApp(firebaseConfig);
 
 const app = createApp(App);
 app.use(store);
 app.use(router);
+app.use(FontAwesome);
 app.mount("#app");
 
 const requireComponent = require.context("./components", true, /App[A-Z]\w+\.(vue|js)$/);

@@ -7,25 +7,20 @@
         </a>
 
         <a href="#">
-          <img
-            class="avatar-large"
-            :src="userById(post.userId).avatar"
-            alt=""
-          />
+          <img class="avatar-large" :src="userById(post.userId).avatar" alt="" />
         </a>
 
-        <p class="desktop-only text-small">
-          {{ userById(post.userId).postsCount }} posts
-        </p>
-        <p class="desktop-only text-small">
-          {{ userById(post.userId).threadsCount }} threads
-        </p>
+        <p class="desktop-only text-small">{{ userById(post.userId).postsCount }} posts</p>
+        <p class="desktop-only text-small">{{ userById(post.userId).threadsCount }} threads</p>
       </div>
 
       <div class="post-content">
         <div>
           <p>{{ post.text }}</p>
         </div>
+        <a href="#" style="margin-left: auto; padding-left: 10px" class="link-unstyled" title="Make a change">
+          <fa icon="pencil-alt" />
+        </a>
       </div>
 
       <div class="post-date text-faded">
