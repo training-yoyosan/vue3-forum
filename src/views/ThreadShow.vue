@@ -2,11 +2,7 @@
   <div v-if="thread" class="col-large push-top">
     <h1>
       {{ thread.title }}
-      <router-link
-        :to="{ name: 'ThreadEdit', params: { id: this.id } }"
-        class="btn-green btn-small"
-        tag="button"
-      >
+      <router-link :to="{ name: 'ThreadEdit', params: { id: this.id } }" class="btn-green btn-small" tag="button">
         Edit
       </router-link>
     </h1>
@@ -16,11 +12,8 @@
       >,
       <AppDate :timestamp="thread.publishedAt" />
       .
-      <span
-        style="float: right; margin-top: 2px"
-        class="hide-mobile text-faded text-small"
-        >{{ thread.repliesCount }} replies by
-        {{ thread.contributorsCount }} contributors</span
+      <span style="float: right; margin-top: 2px" class="hide-mobile text-faded text-small"
+        >{{ thread.repliesCount }} replies by {{ thread.contributorsCount }} contributors</span
       >
     </p>
 
@@ -54,10 +47,10 @@ export default {
 
   computed: {
     threads() {
-      return this.$store.state.threads;
+      return this.$store.state.threads.length > 0 ? this.$store.state.threads : [];
     },
     posts() {
-      return this.$store.state.posts;
+      return this.$store.state.posts.length > 0 ? this.$store.state.posts : [];
     },
     thread() {
       return this.$store.getters.thread(this.id); // available also as this.$route.params.id

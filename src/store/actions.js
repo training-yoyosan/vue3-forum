@@ -1,4 +1,4 @@
-import { findById } from "@/helpers";
+import { docToResource, findById } from "@/helpers";
 import firebase from "firebase";
 
 export default {
@@ -62,13 +62,23 @@ export default {
   async updateThread({ commit, state }, { text, title, threadId }) {
     const thread = findById(state.threads, threadId);
     const post = findById(state.posts, thread.posts[0]);
-    const newThread = { ...thread, title };
-    const newPost = { ...post, text };
+    let newThread = { ...thread, title };
+    let newPost = { ...post, text };
+
+    const threadRef = firebase.firestore().collection("threads").doc(threadId);
+    const postRef = firebase.firestore().collection("posts").doc(post.id);
+    const batch = firebase.firestore().batch();
+    batch.update(threadRef, newThread);
+    batch.update(postRef, newPost);
+    await batch.commit();
+
+    newThread = await firebase.firestore().collection("threads").doc(threadId);
+    newPost = await firebase.firestore().collection("posts").doc(post.id);
 
     commit("setThread", { thread: newThread });
     commit("setPost", { post: newPost });
 
-    return newThread;
+    return docToResource(newThread);
   },
   updateUser({ commit }, user) {
     commit("setUser", { user });
