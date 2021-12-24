@@ -6,9 +6,7 @@
       <div class="thread" v-for="thread in threads" :key="thread.id">
         <div>
           <p>
-            <router-link :to="{ name: 'ThreadShow', params: { id: thread.id } }"
-              >{{ thread.title }}
-            </router-link>
+            <router-link :to="{ name: 'ThreadShow', params: { id: thread.id } }">{{ thread.title }} </router-link>
           </p>
           <p class="text-faded text-xsmall text-left">
             By <a href="#">{{ userById(thread.userId).name }}</a
@@ -18,17 +16,9 @@
         </div>
 
         <div class="activity">
-          <p class="replies-count">
-            {{ thread.repliesCount }} repl{{
-              thread.repliesCount > 1 ? "ies" : "y"
-            }}
-          </p>
+          <p class="replies-count">{{ thread.repliesCount }} repl{{ thread.repliesCount > 1 ? "ies" : "y" }}</p>
 
-          <img
-            class="avatar-medium"
-            :src="userById(thread.userId).avatar"
-            alt=""
-          />
+          <img class="avatar-medium" :src="userById(thread.userId).avatar" alt="" />
 
           <div>
             <p class="text-xsmall">
