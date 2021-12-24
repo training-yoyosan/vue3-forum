@@ -36,9 +36,7 @@ function makeAppendChildToParentMutation({ parent, child }) {
     const resource = findById(state[parent], parentId);
 
     if (!resource) {
-      console.error(
-        `Appending ${child} ${childId} to ${parent} ${parentId} failed because the parent didn't exist.`
-      );
+      console.error(`Appending ${child} ${childId} to ${parent} ${parentId} failed because the parent didn't exist.`);
       return;
     }
 
