@@ -2,19 +2,20 @@
   <div class="col-full push-top">
     <form @submit.prevent="addPost">
       <div class="form-group">
-        <label for="thread_content">Content:</label>
         <textarea
           id="thread_content"
           class="form-input"
           name="content"
           rows="8"
           cols="140"
-          v-model="text"
+          v-model="postCopy.text"
         ></textarea>
       </div>
 
       <div class="btn-group">
-        <button class="btn btn-blue" type="submit" name="submit">Submit</button>
+        <button class="btn btn-blue" type="submit" name="submit">
+          {{ post.id ? "Update Post" : "Submit Post" }}
+        </button>
       </div>
     </form>
   </div>
@@ -24,21 +25,23 @@
 export default {
   name: "PostEditor",
 
+  props: {
+    post: {
+      type: Object,
+      default: () => ({ text: null }),
+    },
+  },
+
   data() {
     return {
-      text: "",
+      postCopy: { ...this.post },
     };
   },
 
   methods: {
     addPost() {
-      const post = {
-        text: this.text,
-      };
-
-      this.$emit("save", { post });
-
-      this.text = "";
+      this.$emit("save", { post: this.postCopy });
+      this.postCopy.text = "";
     },
   },
 };
