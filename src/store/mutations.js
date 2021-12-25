@@ -13,6 +13,12 @@ export default {
   setThread(state, { thread }) {
     upsert(state.threads, docToResource(thread));
   },
+  appendUnsubscribe(state, { unsubscribe }) {
+    state.unsubscribes.push(unsubscribe);
+  },
+  clearAllUnsubscribes(state) {
+    state.unsubscribes = [];
+  },
   appendPostToThread: makeAppendChildToParentMutation({
     parent: "threads",
     child: "posts",

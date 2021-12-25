@@ -4,6 +4,7 @@ import NotFound from "@/views/NotFound";
 import sourceData from "@/data.json";
 import Forum from "@/views/Forum";
 import Category from "@/views/Category";
+import store from "@/store";
 
 const routes = [
   {
@@ -17,8 +18,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    component: () => import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
     path: "/me",
@@ -43,9 +43,7 @@ const routes = [
     component: Category,
     props: true,
     beforeEnter(to, from, next) {
-      const categoryExists = sourceData.categories.find(
-        (category) => category.id === to.params.id
-      );
+      const categoryExists = sourceData.categories.find((category) => category.id === to.params.id);
 
       if (categoryExists) {
         next();
@@ -112,6 +110,10 @@ const router = createRouter({
 
     return scroll;
   },
+});
+
+router.beforeEach(() => {
+  store.dispatch("unsubscribeAllSnapshots");
 });
 
 export default router;

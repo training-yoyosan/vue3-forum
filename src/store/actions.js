@@ -110,7 +110,7 @@ export default {
   fetchItem({ commit }, { resource, id, emoji }) {
     console.log("🔥", emoji, id);
     return new Promise((resolve) => {
-      firebase
+      const unsubscribe = firebase
         .firestore()
         .collection(resource)
         .doc(id)
@@ -119,7 +119,12 @@ export default {
           commit("setItem", { resource, item });
           resolve(item);
         });
+      commit("appendUnsubscribe", { unsubscribe });
     });
+  },
+  async unsubscribeAllSnapshots({ state, commit }) {
+    state.unsubscribes.forEach((unsubscribe) => unsubscribe());
+    commit("clearAllUnsubscribes");
   },
   // ---------------------------------------
   // Fetch All of a Resource
@@ -127,7 +132,7 @@ export default {
   fetchAllCategories({ commit }) {
     console.log("🔥", "🏷", "all");
     return new Promise((resolve) => {
-      firebase
+      const unsubscribe = firebase
         .firestore()
         .collection("categories")
         .onSnapshot(async (querySnap) => {
@@ -138,6 +143,7 @@ export default {
           });
           resolve(categories);
         });
+      commit("appendUnsubscribe", { unsubscribe });
     });
   },
   // ---------------------------------------
