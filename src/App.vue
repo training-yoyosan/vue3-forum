@@ -1,7 +1,8 @@
 <template>
   <the-navbar />
   <div class="container">
-    <router-view />
+    <router-view v-show="showPage" @ready="showPage = true" />
+    <AppSpinner v-show="!showPage" />
   </div>
 </template>
 
@@ -32,9 +33,16 @@
 <script>
 import TheNavbar from "@/components/TheNavbar";
 import { mapActions } from "vuex";
+import AppSpinner from "@/components/AppSpinner";
 
 export default {
-  components: { TheNavbar },
+  components: { AppSpinner, TheNavbar },
+
+  data() {
+    return {
+      showPage: false,
+    };
+  },
 
   methods: {
     ...mapActions(["fetchAuthUser"]),
@@ -42,6 +50,10 @@ export default {
 
   created() {
     this.fetchAuthUser();
+
+    this.$router.beforeEach(() => {
+      this.showPage = false;
+    });
   },
 };
 </script>
