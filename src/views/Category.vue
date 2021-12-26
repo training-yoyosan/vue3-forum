@@ -1,10 +1,12 @@
 <template>
-  <div class="col-full push-top">
-    <h1>{{ category?.name }}</h1>
-  </div>
+  <div v-if="asyncDataStatus_ready" class="container">
+    <div class="col-full push-top">
+      <h1>{{ category?.name }}</h1>
+    </div>
 
-  <div class="col-full">
-    <CategoryList :categories="category ? [category] : []" />
+    <div class="col-full">
+      <CategoryList :categories="category ? [category] : []" />
+    </div>
   </div>
 </template>
 
@@ -12,11 +14,14 @@
 import CategoryList from "@/components/CategoryList";
 import { findById } from "@/helpers";
 import { mapActions } from "vuex";
+import asyncDataStatus from "@/mixins/asyncDataStatus";
 
 export default {
   name: "Category",
 
   components: { CategoryList },
+
+  mixins: [asyncDataStatus],
 
   props: {
     id: {
@@ -39,7 +44,8 @@ export default {
     const category = await this.fetchCategory({
       id: this.id,
     });
-    this.fetchForums({ ids: category.forums });
+    await this.fetchForums({ ids: category.forums });
+    this.asyncDataStatus_fetched();
   },
 };
 </script>
