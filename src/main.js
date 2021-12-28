@@ -7,10 +7,12 @@ import firebaseConfig from "@/config/firebase";
 import FontAwesome from "@/plugins/FontAwesome";
 
 firebase.initializeApp(firebaseConfig);
-firebase.auth().onAuthStateChanged(async (user) => {
+firebase.auth().onAuthStateChanged((user) => {
   console.log("auth state changed", user);
+  store.dispatch("unsubscribeAuthUserSnapshot");
+
   if (user) {
-    await store.dispatch("fetchAuthUser");
+    store.dispatch("fetchAuthUser");
   }
 });
 

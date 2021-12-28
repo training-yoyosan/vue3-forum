@@ -146,16 +146,22 @@ export default {
   fetchForum: ({ dispatch }, { id }) => dispatch("fetchItem", { resource: "forums", id, emoji: "🏁" }),
   fetchThread: ({ dispatch }, { id }) => dispatch("fetchItem", { resource: "threads", id, emoji: "📄" }),
   fetchPost: ({ dispatch }, { id }) => dispatch("fetchItem", { resource: "posts", id, emoji: "💬" }),
-  fetchUser: ({ dispatch }, { id }) => dispatch("fetchItem", { resource: "users", id, emoji: "🙋" }),
   fetchAuthUser: ({ dispatch, commit }) => {
     const userId = firebase.auth().currentUser?.uid;
 
     if (!userId) return;
 
-    dispatch("fetchUser", { id: userId });
+    dispatch("fetchItem", {
+      resource: "users",
+      id: userId,
+      emoji: "🙋",
+      handleUnsubscribe: (unsubscribe) => {
+        commit("setAuthUserUnsubscribe", unsubscribe);
+      },
+    });
     commit("setAuthId", userId);
   },
-  fetchItem({ commit }, { resource, id, emoji }) {
+  fetchItem({ commit }, { resource, id, emoji, handleUnsubscribe = null }) {
     console.log("🔥", emoji, id);
     return new Promise((resolve) => {
       const unsubscribe = firebase
@@ -163,16 +169,28 @@ export default {
         .collection(resource)
         .doc(id)
         .onSnapshot((doc) => {
+          // console.log("on snapshot", resource, doc.data());
           const item = { ...doc.data(), id: doc.id };
           commit("setItem", { resource, item });
           resolve(item);
         });
-      commit("appendUnsubscribe", { unsubscribe });
+
+      if (handleUnsubscribe) {
+        handleUnsubscribe(unsubscribe);
+      } else {
+        commit("appendUnsubscribe", { unsubscribe });
+      }
     });
   },
   async unsubscribeAllSnapshots({ state, commit }) {
     state.unsubscribes.forEach((unsubscribe) => unsubscribe());
     commit("clearAllUnsubscribes");
+  },
+  unsubscribeAuthUserSnapshot({ state, commit }) {
+    if (state.authUserUnsubscribe) {
+      state.authUserUnsubscribe();
+      commit("setAuthUserUnsubscribe", null);
+    }
   },
   // ---------------------------------------
   // Fetch All of a Resource
