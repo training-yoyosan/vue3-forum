@@ -102,6 +102,11 @@ const routes = [
     name: "Register",
     component: () => import("@/views/Register"),
   },
+  {
+    path: "/signin",
+    name: "SignIn",
+    component: () => import("@/views/SignIn"),
+  },
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
 ];
 

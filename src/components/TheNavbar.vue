@@ -16,18 +16,10 @@
       <ul>
         <li v-if="authUser" class="navbar-user">
           <router-link :to="{ name: 'Profile' }">
-            <img
-              class="avatar-small"
-              :src="authUser.avatar"
-              :alt="`${authUser.name} profile picture`"
-            />
+            <img class="avatar-small" :src="authUser.avatar" :alt="`${authUser.name} profile picture`" />
             <span>
               {{ authUser.name }}
-              <img
-                class="icon-profile"
-                src="../assets/svg/arrow-profile.svg"
-                alt=""
-              />
+              <img class="icon-profile" src="../assets/svg/arrow-profile.svg" alt="" />
             </span>
           </router-link>
 
@@ -43,6 +35,9 @@
             </ul>
           </div>
         </li>
+        <li v-if="authUser" class="navbar-item"><a @click.prevent="$store.dispatch('signOut')">Sign Out</a></li>
+        <li v-if="!authUser" class="navbar-item"><router-link :to="{ name: 'SignIn' }">Sign In</router-link></li>
+        <li v-if="!authUser" class="navbar-item"><router-link :to="{ name: 'Register' }">Register</router-link></li>
       </ul>
 
       <!--      <ul>-->
