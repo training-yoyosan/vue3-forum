@@ -102,6 +102,22 @@ export default {
   signInWithEmailAndPassword(context, { email, password }) {
     return firebase.auth().signInWithEmailAndPassword(email, password);
   },
+  async signInWithGoogle({ dispatch }) {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const response = await firebase.auth().signInWithPopup(provider);
+    const user = response.user;
+    const userRef = firebase.firestore().collection("users").doc(user.uid);
+    const userDoc = await userRef.get();
+    if (!userDoc.exists) {
+      return dispatch("createUser", {
+        id: user.uid,
+        name: user.displayName,
+        email: user.email,
+        username: user.email,
+        avatar: user.photoURL,
+      });
+    }
+  },
   async signOut({ commit }) {
     firebase.auth().signOut();
     commit("setAuthId", null);
