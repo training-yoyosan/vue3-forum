@@ -39,6 +39,10 @@ export default {
   computed: {
     ...mapGetters({ user: "authUser" }),
   },
+
+  created() {
+    this.$emit("ready");
+  },
 };
 </script>
 

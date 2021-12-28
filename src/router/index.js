@@ -97,6 +97,11 @@ const routes = [
     component: () => import("@/views/ThreadEdit"),
     props: true,
   },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("@/views/Register"),
+  },
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
 ];
 

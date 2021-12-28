@@ -13,6 +13,9 @@ export default {
   setThread(state, { thread }) {
     upsert(state.threads, docToResource(thread));
   },
+  setAuthId(state, id) {
+    state.authId = id;
+  },
   appendUnsubscribe(state, { unsubscribe }) {
     state.unsubscribes.push(unsubscribe);
   },

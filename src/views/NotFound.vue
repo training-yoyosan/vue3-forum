@@ -8,6 +8,10 @@
 <script>
 export default {
   name: "PageNotFound",
+
+  created() {
+    this.$emit("ready");
+  },
 };
 </script>
 
