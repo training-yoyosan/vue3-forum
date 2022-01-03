@@ -25,6 +25,11 @@ const routes = [
     name: "Profile",
     component: () => import("@/views/Profile"),
     meta: { toTop: true, smoothScroll: true },
+    beforeEnter() {
+      if (!store.state.authId) {
+        return { name: "Home" };
+      }
+    },
   },
   {
     path: "/me/edit",
@@ -106,6 +111,14 @@ const routes = [
     path: "/signin",
     name: "SignIn",
     component: () => import("@/views/SignIn"),
+  },
+  {
+    path: "/signout",
+    name: "SignOut",
+    async beforeEnter() {
+      await store.dispatch("signOut");
+      return { name: "Home" };
+    },
   },
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
 ];
