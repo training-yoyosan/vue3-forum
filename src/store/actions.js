@@ -2,6 +2,27 @@ import { docToResource, findById } from "@/helpers";
 import firebase from "firebase";
 
 export default {
+  initAuthentication({ dispatch, commit, state }) {
+    if (state.authObserverUnsubscribe) {
+      return;
+    }
+
+    return new Promise((resolve) => {
+      // ensure there is one subscriber per authenticated user
+      const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
+        console.log("auth state changed", user);
+        dispatch("unsubscribeAuthUserSnapshot");
+
+        if (user) {
+          await dispatch("fetchAuthUser");
+          resolve(user);
+        } else {
+          resolve(null);
+        }
+      });
+      commit("setAuthObserverUnsubscribe", unsubscribe);
+    });
+  },
   async createPost({ commit, state }, post) {
     post.userId = state.authId;
     post.publishedAt = firebase.firestore.FieldValue.serverTimestamp();
@@ -146,12 +167,12 @@ export default {
   fetchForum: ({ dispatch }, { id }) => dispatch("fetchItem", { resource: "forums", id, emoji: "🏁" }),
   fetchThread: ({ dispatch }, { id }) => dispatch("fetchItem", { resource: "threads", id, emoji: "📄" }),
   fetchPost: ({ dispatch }, { id }) => dispatch("fetchItem", { resource: "posts", id, emoji: "💬" }),
-  fetchAuthUser: ({ dispatch, commit }) => {
+  fetchAuthUser: async ({ dispatch, commit }) => {
     const userId = firebase.auth().currentUser?.uid;
 
     if (!userId) return;
 
-    dispatch("fetchItem", {
+    await dispatch("fetchItem", {
       resource: "users",
       id: userId,
       emoji: "🙋",
@@ -226,6 +247,10 @@ export default {
   fetchPosts: ({ dispatch }, { ids }) => dispatch("fetchItems", { resource: "posts", ids, emoji: "💬" }),
   fetchUsers: ({ dispatch }, { ids }) => dispatch("fetchItems", { resource: "users", ids, emoji: "🙋" }),
   fetchItems({ dispatch }, { ids, resource, emoji }) {
+    if (!ids) {
+      return;
+    }
+
     // resolves all promises before returning the array
     return Promise.all(ids.map((id) => dispatch("fetchItem", { id, resource, emoji })));
   },

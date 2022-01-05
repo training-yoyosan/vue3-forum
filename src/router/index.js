@@ -130,7 +130,9 @@ const router = createRouter({
   },
 });
 
-router.beforeEach((to) => {
+router.beforeEach(async (to) => {
+  await store.dispatch("initAuthentication");
+
   store.dispatch("unsubscribeAllSnapshots");
 
   if (to.meta.requiresAuth && !store.state.authId) {
