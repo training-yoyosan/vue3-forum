@@ -31,12 +31,13 @@ const routes = [
     name: "ProfileEdit",
     component: () => import("@/views/Profile"),
     props: { edit: true },
+    meta: { requiresAuth: true },
   },
-  {
+  /*  {
     path: "/test",
     name: "Test",
     component: () => import("@/views/Test"),
-  },
+  },*/
   {
     path: "/category/:id",
     name: "Category",
@@ -90,12 +91,14 @@ const routes = [
     name: "ThreadCreate",
     component: () => import("@/views/ThreadCreate"),
     props: true,
+    meta: { requiresAuth: true },
   },
   {
     path: "/thread/:id/edit",
     name: "ThreadEdit",
     component: () => import("@/views/ThreadEdit"),
     props: true,
+    meta: { requiresAuth: true },
   },
   {
     path: "/register",
