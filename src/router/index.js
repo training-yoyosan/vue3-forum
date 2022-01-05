@@ -104,11 +104,13 @@ const routes = [
     path: "/register",
     name: "Register",
     component: () => import("@/views/Register"),
+    meta: { requiresGuest: true },
   },
   {
     path: "/signin",
     name: "SignIn",
     component: () => import("@/views/SignIn"),
+    meta: { requiresGuest: true },
   },
   {
     path: "/signout",
@@ -139,6 +141,10 @@ router.beforeEach(async (to) => {
   store.dispatch("unsubscribeAllSnapshots");
 
   if (to.meta.requiresAuth && !store.state.authId) {
+    return { name: "SignIn" };
+  }
+
+  if (to.meta.requiresGuest) {
     return { name: "Home" };
   }
 });
