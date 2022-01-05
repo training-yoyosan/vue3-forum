@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home";
 import NotFound from "@/views/NotFound";
-import sourceData from "@/data.json";
 import Forum from "@/views/Forum";
 import Category from "@/views/Category";
 import store from "@/store";
+import { findById } from "@/helpers";
 
 const routes = [
   {
@@ -42,8 +42,9 @@ const routes = [
     name: "Category",
     component: Category,
     props: true,
-    beforeEnter(to, from, next) {
-      const categoryExists = sourceData.categories.find((category) => category.id === to.params.id);
+    async beforeEnter(to, from, next) {
+      await store.dispatch("fetchCategory", { id: to.params.id });
+      const categoryExists = findById(store.state.categories, to.params.id);
 
       if (categoryExists) {
         next();
@@ -68,10 +69,9 @@ const routes = [
     name: "ThreadShow",
     component: () => import("@/views/ThreadShow"),
     props: true,
-    /*beforeEnter(to, from, next) {
-      const threadExists = sourceData.threads.find(
-        (thread) => thread.id === to.params.id
-      );
+    async beforeEnter(to, from, next) {
+      await store.dispatch("fetchThread", { id: to.params.id });
+      const threadExists = findById(store.state.threads, to.params.id);
 
       if (threadExists) {
         next();
@@ -83,7 +83,7 @@ const routes = [
           hash: to.hash,
         });
       }
-    },*/
+    },
   },
   {
     path: "/forum/:forumId/thread/create",
