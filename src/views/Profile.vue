@@ -23,11 +23,14 @@ import PostList from "@/components/PostList";
 import { mapGetters } from "vuex";
 import UserProfileCard from "@/components/UserProfileCard";
 import UserProfileCardEditor from "@/components/UserProfileCardEditor";
+import asyncDataStatus from "@/mixins/asyncDataStatus";
 
 export default {
   name: "Profile",
 
   components: { UserProfileCardEditor, UserProfileCard, PostList },
+
+  mixins: [asyncDataStatus],
 
   props: {
     edit: {
@@ -39,8 +42,9 @@ export default {
   computed: {
     ...mapGetters({ user: "authUser" }),
   },
-  created() {
-    this.$emit("ready");
+  async created() {
+    await this.$store.dispatch("fetchAuthUsersPosts");
+    this.asyncDataStatus_fetched();
   },
 };
 </script>

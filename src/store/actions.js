@@ -182,6 +182,10 @@ export default {
     });
     commit("setAuthId", userId);
   },
+  async fetchAuthUsersPosts({ state, commit }) {
+    const posts = await firebase.firestore().collection("posts").where("userId", "==", state.authId).get();
+    posts.forEach((item) => commit("setItem", { resource: "posts", item }));
+  },
   fetchItem({ commit }, { resource, id, emoji, handleUnsubscribe = null }) {
     console.log("🔥", emoji, id);
     return new Promise((resolve) => {

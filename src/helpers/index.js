@@ -20,7 +20,7 @@ export const upsert = (resources, resource) => {
 };
 
 export const docToResource = (doc) => {
-  if (doc?.data !== "function") return doc;
+  if (typeof doc?.data !== "function") return doc;
 
   return { ...doc.data(), id: doc.id };
 };
