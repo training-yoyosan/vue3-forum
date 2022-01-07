@@ -1,7 +1,8 @@
 <template>
   <the-navbar />
   <div class="container">
-    <router-view v-show="showPage" @ready="onPageReady" />
+    <!-- See why use `:key`, https://vueschool.io/lessons/forcing-vue-router-to-destroy-component-to-trigger-lifecycle-hooks -->
+    <router-view v-show="showPage" @ready="onPageReady" :key="$route.path" />
     <AppSpinner v-show="!showPage" />
   </div>
 </template>
