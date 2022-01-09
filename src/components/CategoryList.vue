@@ -1,9 +1,7 @@
 <template>
   <div class="forum-list" v-for="category in categories" :key="category.id">
     <h2 class="list-title">
-      <router-link :to="{ name: 'Category', params: { id: category.id } }"
-        >{{ category.name }}
-      </router-link>
+      <router-link :to="{ name: 'Category', params: { id: category.id } }">{{ category.name }} </router-link>
     </h2>
 
     <ForumList :forums="getForums(category)" />
@@ -28,13 +26,11 @@ export default {
 
   methods: {
     getForums(category) {
-      if (this.$store.state.forums.length === 0) {
+      if (this.$store.state.forums.items.length === 0) {
         return [];
       }
 
-      let forums = category.forums.map((forumId) =>
-        findById(this.$store.state.forums, forumId)
-      );
+      let forums = category.forums.map((forumId) => findById(this.$store.state.forums.items, forumId));
 
       for (const forum of forums) {
         if (forum === undefined) {

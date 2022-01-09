@@ -32,12 +32,13 @@ export default {
 
   computed: {
     category() {
-      return findById(this.$store.state.categories, this.id) || undefined;
+      return findById(this.$store.state.categories.items, this.id) || undefined;
     },
   },
 
   methods: {
-    ...mapActions(["fetchCategory", "fetchForums"]),
+    ...mapActions("categories", ["fetchCategory"]),
+    ...mapActions("forums", ["fetchForums"]),
   },
 
   async created() {

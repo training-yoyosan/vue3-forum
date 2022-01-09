@@ -40,17 +40,19 @@ export default {
 
   computed: {
     forum() {
-      return findById(this.$store.state.forums, this.id);
+      return findById(this.$store.state.forums.items, this.id);
     },
     forumThreads() {
-      return this.$store.state.threads
+      return this.$store.state.threads.items
         .filter((th) => th.forumId === this.id)
-        .map((th) => this.$store.getters.thread(th.id));
+        .map((th) => this.$store.getters["threads/thread"](th.id));
     },
   },
 
   methods: {
-    ...mapActions(["fetchForum", "fetchThreads", "fetchUsers"]),
+    ...mapActions("forums", ["fetchForum"]),
+    ...mapActions("threads", ["fetchThreads"]),
+    ...mapActions("users", ["fetchUsers"]),
   },
 
   async created() {

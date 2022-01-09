@@ -36,12 +36,13 @@ export default {
 
   computed: {
     forum() {
-      return findById(this.$store.state.forums, this.forumId) || undefined;
+      return findById(this.$store.state.forums.items, this.forumId) || undefined;
     },
   },
 
   methods: {
-    ...mapActions(["createThread", "fetchForum"]),
+    ...mapActions("threads", ["createThread"]),
+    ...mapActions("forums", ["fetchForum"]),
 
     async save({ title, text }) {
       const thread = await this.createThread({

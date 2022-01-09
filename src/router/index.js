@@ -44,8 +44,8 @@ const routes = [
     component: Category,
     props: true,
     async beforeEnter(to, from, next) {
-      await store.dispatch("fetchCategory", { id: to.params.id });
-      const categoryExists = findById(store.state.categories, to.params.id);
+      await store.dispatch("categories/fetchCategory", { id: to.params.id });
+      const categoryExists = findById(store.state.categories.items, to.params.id);
 
       if (categoryExists) {
         next();
@@ -71,8 +71,8 @@ const routes = [
     component: () => import("@/views/ThreadShow"),
     props: true,
     async beforeEnter(to, from, next) {
-      await store.dispatch("fetchThread", { id: to.params.id });
-      const threadExists = findById(store.state.threads, to.params.id);
+      await store.dispatch("threads/fetchThread", { id: to.params.id });
+      const threadExists = findById(store.state.threads.items, to.params.id);
 
       if (threadExists) {
         next();
@@ -116,7 +116,7 @@ const routes = [
     path: "/signout",
     name: "SignOut",
     async beforeEnter() {
-      await store.dispatch("signOut");
+      await store.dispatch("auth/signOut");
       return { name: "Home" };
     },
   },
@@ -136,15 +136,14 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-  await store.dispatch("initAuthentication");
+  await store.dispatch("auth/initAuthentication");
+  await store.dispatch("unsubscribeAllSnapshots");
 
-  store.dispatch("unsubscribeAllSnapshots");
-
-  if (to.meta.requiresAuth && !store.state.authId) {
+  if (to.meta.requiresAuth && !store.state.auth.authId) {
     return { name: "SignIn", query: { redirectTo: to.path } };
   }
 
-  if (to.meta.requiresGuest && store.state.authId) {
+  if (to.meta.requiresGuest && store.state.auth.authId) {
     return { name: "Home" };
   }
 });

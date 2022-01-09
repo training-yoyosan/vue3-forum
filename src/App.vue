@@ -23,7 +23,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["fetchAuthUser"]),
+    ...mapActions("auth", ["fetchAuthUser"]),
     onPageReady() {
       this.showPage = true;
       NProgress.done();

@@ -66,7 +66,6 @@ export default {
   watch: {
     form: {
       handler() {
-        console.log(this.form, this.title, this.text);
         if (this.form.title !== this.title || this.form.text !== this.text) {
           this.$emit("dirty");
         } else {
