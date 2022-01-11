@@ -42,7 +42,7 @@ export default {
 
   data() {
     return {
-      page: 1,
+      page: parseInt(this.$route.query.page) || 1,
       perPage: 5,
     };
   },
@@ -84,14 +84,8 @@ export default {
   },
 
   watch: {
-    async page() {
-      const threads = await this.fetchThreadsByPage({
-        ids: this.forum.threads,
-        page: this.page,
-        perPage: this.perPage,
-      });
-
-      await this.fetchUsers({ ids: threads.map((thread) => thread.userId) });
+    page() {
+      this.$router.push({ query: { page: this.page } });
     },
   },
 };
