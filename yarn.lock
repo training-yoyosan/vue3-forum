@@ -1380,6 +1380,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@hennge/vue3-pagination@^1.0.17":
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/@hennge/vue3-pagination/-/vue3-pagination-1.0.17.tgz#86169294c4fe343b22523e4a2d0e25bf91c61708"
+  integrity sha512-HV9blF/Us0IvRwWl2sOEmegxgKd0aVnjSxE1ksrsMnTv4F7FoLx/25M9gOszDJn7mFTi1kMapQoDGkaW+nbdvA==
+
 "@intervolga/optimize-cssnano-plugin@^1.0.5":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@intervolga/optimize-cssnano-plugin/-/optimize-cssnano-plugin-1.0.6.tgz#be7c7846128b88f6a9b1d1261a0ad06eb5c0fdf8"
