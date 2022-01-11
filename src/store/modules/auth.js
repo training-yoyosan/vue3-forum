@@ -82,8 +82,21 @@ export default {
       );
       commit("setAuthId", userId);
     },
-    async fetchAuthUsersPosts({ state, commit }) {
-      const posts = await firebase.firestore().collection("posts").where("userId", "==", state.authId).get();
+    async fetchAuthUsersPosts({ state, commit }, { startAfter }) {
+      let query = firebase
+        .firestore()
+        .collection("posts")
+        .where("userId", "==", state.authId)
+        .orderBy("publishedAt", "desc")
+        .limit(5);
+
+      if (startAfter) {
+        const doc = await firebase.firestore().collection("posts").doc(startAfter.id).get();
+        query = query.startAfter(doc);
+      }
+
+      const posts = await query.get();
+
       posts.forEach((item) => commit("setItem", { resource: "posts", item }, { root: true }));
     },
     unsubscribeAuthUserSnapshot({ state, commit }) {
