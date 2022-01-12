@@ -1,7 +1,7 @@
 import firebase from "firebase";
 
 export default {
-  fetchItem({ commit }, { resource, id, emoji, handleUnsubscribe = null }) {
+  fetchItem({ commit }, { resource, id, emoji, handleUnsubscribe = null, once = false }) {
     console.log("🔥", emoji, id);
     return new Promise((resolve) => {
       const unsubscribe = firebase
@@ -9,7 +9,10 @@ export default {
         .collection(resource)
         .doc(id)
         .onSnapshot((doc) => {
-          console.log("on snapshot", resource, doc.data());
+          if (once) {
+            unsubscribe();
+          }
+
           if (doc.exists) {
             const item = { ...doc.data(), id: doc.id };
             commit("setItem", { resource, item });

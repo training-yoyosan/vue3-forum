@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import { docToResource, upsert } from "@/helpers";
+import { docToResource, makeFetchItemAction, makeFetchItemsAction, upsert } from "@/helpers";
 
 export default {
   namespaced: true,
@@ -60,9 +60,8 @@ export default {
       const updatedPost = await postRef.get();
       commit("setItem", { resource: "posts", item: updatedPost }, { root: true });
     },
-    fetchPost: ({ dispatch }, { id }) => dispatch("fetchItem", { resource: "posts", id, emoji: "💬" }, { root: true }),
-    fetchPosts: ({ dispatch }, { ids }) =>
-      dispatch("fetchItems", { resource: "posts", ids, emoji: "💬" }, { root: true }),
+    fetchPost: makeFetchItemAction({ resource: "posts", emoji: "💬" }),
+    fetchPosts: makeFetchItemsAction({ resource: "posts", emoji: "💬" }),
   },
   mutations: {
     setPost(state, { post }) {

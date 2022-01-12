@@ -1,4 +1,11 @@
-import { docToResource, findById, makeAppendChildToParentMutation, upsert } from "@/helpers";
+import {
+  docToResource,
+  findById,
+  makeAppendChildToParentMutation,
+  makeFetchItemAction,
+  makeFetchItemsAction,
+  upsert,
+} from "@/helpers";
 import firebase from "firebase";
 
 export default {
@@ -63,8 +70,8 @@ export default {
 
       commit("setUser", { user });
     },
-    fetchUsers: ({ dispatch }, { ids }) =>
-      dispatch("fetchItems", { resource: "users", ids, emoji: "🙋" }, { root: true }),
+    fetchUser: makeFetchItemAction({ emoji: "🙋", resource: "users" }),
+    fetchUsers: makeFetchItemsAction({ resource: "users", emoji: "🙋" }),
   },
   mutations: {
     setUser(state, { user }) {

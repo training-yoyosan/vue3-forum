@@ -1,11 +1,7 @@
 <template>
   <div class="forum-listing" v-for="forum in forums" :key="forum.id">
     <div class="forum-details">
-      <router-link
-        class="text-xlarge"
-        :to="{ name: 'Forum', params: { id: forum.id } }"
-        >{{ forum.name }}
-      </router-link>
+      <router-link class="text-xlarge" :to="{ name: 'Forum', params: { id: forum.id } }">{{ forum.name }} </router-link>
       <p>{{ forum.description }}</p>
     </div>
 
