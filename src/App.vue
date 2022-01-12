@@ -4,6 +4,7 @@
     <!-- See why use `:key`, https://vueschool.io/lessons/forcing-vue-router-to-destroy-component-to-trigger-lifecycle-hooks -->
     <router-view v-show="showPage" @ready="onPageReady" :key="$route.fullPath" />
     <AppSpinner v-show="!showPage" />
+    <AppNotifications />
   </div>
 </template>
 
@@ -12,9 +13,10 @@ import TheNavbar from "@/components/TheNavbar";
 import { mapActions } from "vuex";
 import AppSpinner from "@/components/AppSpinner";
 import NProgress from "nprogress";
+import AppNotifications from "@/components/AppNotifications";
 
 export default {
-  components: { AppSpinner, TheNavbar },
+  components: { AppSpinner, TheNavbar, AppNotifications },
 
   data() {
     return {

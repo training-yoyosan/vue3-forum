@@ -49,6 +49,13 @@ export default {
       const post = {
         text,
         edited: {
+          /**
+            fires two times on onSnapshot, so the check on doc.metadata.hasPendingWrites will fail
+              1. fires once on the local write with a timestamp of null
+              2. fires a second time on the local write with the server timestamp
+
+            @see https://vueschool.io/lessons/implementing-the-notifications-on-thread-page-part-2
+           */
           at: firebase.firestore.FieldValue.serverTimestamp(),
           by: rootState.auth.authId,
           modified: false,
