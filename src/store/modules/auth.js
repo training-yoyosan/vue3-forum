@@ -34,6 +34,16 @@ export default {
     },
     async registerUserWithEmailAndPassword({ dispatch }, { email, name, username, avatar = null, password }) {
       const result = await firebase.auth().createUserWithEmailAndPassword(email, password);
+
+      if (avatar) {
+        const storageBucket = firebase
+          .storage()
+          .ref()
+          .child(`uploads/${result.user.uid}/images/${Date.now()}-${avatar.name}`);
+        const snapshot = await storageBucket.put(avatar);
+        avatar = await snapshot.ref.getDownloadURL();
+      }
+
       await dispatch("users/createUser", { id: result.user.uid, email, name, username, avatar }, { root: true });
     },
     signInWithEmailAndPassword(context, { email, password }) {
