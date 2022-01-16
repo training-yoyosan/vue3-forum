@@ -18,6 +18,13 @@
 <script>
 export default {
   name: "AppSpinner",
+
+  props: {
+    color: {
+      type: String,
+      default: "#263959",
+    },
+  },
 };
 </script>
 
@@ -41,7 +48,7 @@ export default {
   margin: 0 auto;
   width: 15%;
   height: 15%;
-  background-color: rgb(38, 57, 89);
+  background-color: v-bind(color);
   border-radius: 100%;
   -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
   animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
