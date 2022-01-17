@@ -7,7 +7,7 @@
         </a>
 
         <a href="#">
-          <img class="avatar-large" :src="userById(post.userId).avatar" alt="" />
+          <AppAvatarImg class="avatar-large" :src="userById(post.userId).avatar" />
         </a>
 
         <p class="desktop-only text-small">{{ userById(post.userId).postsCount }} posts</p>
@@ -42,10 +42,11 @@
 <script>
 import PostEditor from "@/components/PostEditor";
 import { mapActions } from "vuex";
+import AppAvatarImg from "@/components/AppAvatarImg";
 export default {
   name: "PostList",
 
-  components: { PostEditor },
+  components: { AppAvatarImg, PostEditor },
 
   props: {
     posts: {

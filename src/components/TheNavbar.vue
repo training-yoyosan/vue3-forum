@@ -21,7 +21,7 @@
       <ul>
         <li v-if="authUser" class="navbar-user">
           <a @click.prevent="userDropdownOpen = !userDropdownOpen" v-click-outside="() => (userDropdownOpen = false)">
-            <img class="avatar-small" :src="authUser.avatar" :alt="`${authUser.name} profile picture`" />
+            <AppAvatarImg class="avatar-small" :src="authUser.avatar" :alt="`${authUser.name} profile picture`" />
             <span>
               {{ authUser.name }}
               <img class="icon-profile" src="../assets/svg/arrow-profile.svg" alt="" />
@@ -78,10 +78,11 @@
 
 <script>
 import { mapGetters } from "vuex";
+import AppAvatarImg from "@/components/AppAvatarImg";
 
 export default {
   name: "TheNavbar",
-
+  components: { AppAvatarImg },
   data() {
     return {
       userDropdownOpen: false,

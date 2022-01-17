@@ -3,7 +3,7 @@
     <form @submit.prevent="save">
       <p class="text-center avatar-edit">
         <label for="avatar">
-          <img :src="activeUser.avatar" :alt="`${user.name} profile picture`" class="avatar-xlarge" />
+          <AppAvatarImg :src="activeUser.avatar" :alt="`${user.name} profile picture`" class="avatar-xlarge" />
           <div class="avatar-upload-overlay">
             <AppSpinner v-if="uploadingImage" color="white" />
             <fa v-else icon="camera" size="3x" :style="{ color: 'white', opacity: '8' }" />
@@ -67,10 +67,11 @@
 
 <script>
 import { mapActions } from "vuex";
+import AppAvatarImg from "@/components/AppAvatarImg";
 
 export default {
   name: "UserProfileCardEditor",
-
+  components: { AppAvatarImg },
   data() {
     return {
       activeUser: { ...this.user },

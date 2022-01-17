@@ -18,7 +18,7 @@
         <div class="activity">
           <p class="replies-count">{{ thread.repliesCount }} repl{{ thread.repliesCount > 1 ? "ies" : "y" }}</p>
 
-          <img class="avatar-medium" :src="userById(thread.userId).avatar" alt="" />
+          <AppAvatarImg class="avatar-medium" :src="userById(thread.userId).avatar" alt="" />
 
           <div>
             <p class="text-xsmall">
@@ -35,9 +35,10 @@
 </template>
 
 <script>
+import AppAvatarImg from "@/components/AppAvatarImg";
 export default {
   name: "ThreadList",
-
+  components: { AppAvatarImg },
   props: {
     threads: {
       type: Array,
