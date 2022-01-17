@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import useNotifications from "@/composables/useNotifications";
 
 export default {
   namespaced: true,
@@ -41,10 +42,16 @@ export default {
       if (!file) return null;
 
       authId = authId || state.authId;
-      const storageBucket = firebase.storage().ref().child(`uploads/${authId}/images/${Date.now()}-${file.name}`);
-      const snapshot = await storageBucket.put(file);
 
-      return await snapshot.ref.getDownloadURL();
+      try {
+        const storageBucket = firebase.storage().ref().child(`uploads/${authId}/images/${Date.now()}-${file.name}`);
+        const snapshot = await storageBucket.put(file);
+
+        return await snapshot.ref.getDownloadURL();
+      } catch (e) {
+        const { addNotification } = useNotifications();
+        addNotification({ message: "Error uploading avatar image!", type: "error" });
+      }
     },
     signInWithEmailAndPassword(context, { email, password }) {
       return firebase.auth().signInWithEmailAndPassword(email, password);

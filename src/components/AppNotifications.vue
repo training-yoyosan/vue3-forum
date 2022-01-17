@@ -1,7 +1,12 @@
 <template>
   <div class="notifications">
     <transition-group name="notification">
-      <div class="notification" v-for="notification in notifications" :key="notification.id">
+      <div
+        class="notification"
+        :class="`notification-type-${notification.type}`"
+        v-for="notification in notifications"
+        :key="notification.id"
+      >
         <span>{{ notification.message }}</span>
         <button @click="removeNotification(notification.id)">x</button>
       </div>
@@ -34,6 +39,9 @@ export default {
   padding: 10px 20px;
   margin-bottom: 5px;
   border-left: 5px solid #263959;
+}
+.notification.notification-type-error {
+  border-left: 5px solid rgb(230, 5, 5);
 }
 
 .notification-enter-active,
