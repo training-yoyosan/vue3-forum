@@ -6,7 +6,7 @@ import {
   makeFetchItemsAction,
   upsert,
 } from "@/helpers";
-import firebase from "firebase";
+import firebase from "@/helpers/firebase";
 import { chunk } from "lodash/array";
 
 export default {

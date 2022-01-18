@@ -67,8 +67,6 @@ export default {
     if (this.formIsDirty) {
       const confirmed = window.confirm("Are you sure you want to leave? Unsaved changes will be lost!");
 
-      console.log(confirmed);
-
       if (!confirmed) {
         return false;
       }

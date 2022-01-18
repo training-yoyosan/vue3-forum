@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import firebase from "@/helpers/firebase";
 import useNotifications from "@/composables/useNotifications";
 
 export default {
@@ -20,7 +20,6 @@ export default {
       return new Promise((resolve) => {
         // ensure there is one subscriber per authenticated user
         const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
-          console.log("auth state changed", user);
           dispatch("unsubscribeAuthUserSnapshot");
 
           if (user) {

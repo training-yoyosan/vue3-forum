@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import firebase from "@/helpers/firebase";
 import { docToResource, makeFetchItemAction, makeFetchItemsAction, upsert } from "@/helpers";
 
 export default {
