@@ -35,7 +35,7 @@ export default {
     },
     async registerUserWithEmailAndPassword({ dispatch }, { email, name, username, avatar = null, password }) {
       const result = await firebase.auth().createUserWithEmailAndPassword(email, password);
-      avatar = dispatch("uploadAvatar", { authId: result.user.uid, file: avatar });
+      avatar = await dispatch("uploadAvatar", { authId: result.user.uid, file: avatar });
       await dispatch("users/createUser", { id: result.user.uid, email, name, username, avatar }, { root: true });
     },
     async uploadAvatar({ state }, { authId, file }) {

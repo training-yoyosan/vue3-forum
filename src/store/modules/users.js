@@ -47,6 +47,7 @@ export default {
 
       const user = { email, name, username, usernameLower, avatar, registeredAt };
       const userRef = firebase.firestore().collection("users").doc(id);
+      console.log("before create", user);
       await userRef.set(user);
 
       const newUser = await userRef.get();

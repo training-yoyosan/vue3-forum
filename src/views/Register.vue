@@ -22,7 +22,8 @@
               <img :src="avatarPreview" class="avatar-xlarge" />
             </div>
           </label>
-          <input
+          <VeeField
+            name="avatar"
             v-show="!avatarPreview"
             id="avatar"
             type="file"
@@ -74,10 +75,8 @@ export default {
     },
     handleImageUpload(e) {
       this.form.avatar = e.target.files[0];
-      console.log(e);
       const reader = new FileReader();
       reader.onload = (event) => {
-        console.log("onload", event);
         this.avatarPreview = event.target.result;
       };
       reader.readAsDataURL(this.form.avatar);
