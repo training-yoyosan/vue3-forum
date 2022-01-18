@@ -8,6 +8,7 @@ import FontAwesome from "@/plugins/FontAwesome";
 import vClickOutside from "click-outside-vue3";
 import PageScrollDirective from "@/plugins/PageScrollDirective";
 import Vue3Pagination from "@/plugins/Vue3Pagination";
+import VeeValidatePlugin from "@/plugins/VeeValidatePlugin";
 
 firebase.initializeApp(firebaseConfig);
 
@@ -18,6 +19,7 @@ app.use(FontAwesome);
 app.use(vClickOutside);
 app.use(PageScrollDirective);
 app.use(Vue3Pagination);
+app.use(VeeValidatePlugin);
 app.mount("#app");
 
 const requireComponent = require.context("./components", true, /App[A-Z]\w+\.(vue|js)$/);

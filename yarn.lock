@@ -1669,6 +1669,16 @@
     anymatch "^3.0.0"
     source-map "^0.6.0"
 
+"@vee-validate/i18n@^4.5.7":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@vee-validate/i18n/-/i18n-4.5.7.tgz#4d6e0cfdcaad07792adb296502366a923cdac663"
+  integrity sha512-QD7gM57UBkcWZfBSA808yX3i1/yREaueNwBdfZxX2Dl2pywNyy11ZP62iH1vs9FIXvlMvo5YnfFj7EA0DRcHHA==
+
+"@vee-validate/rules@^4.5.7":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@vee-validate/rules/-/rules-4.5.7.tgz#951b3f3525fb762de4ede7f67aad21675f32ff18"
+  integrity sha512-8Q89wiOJ7cdYDOHTBAWr0/CyLvqPtTTxMieEhYFiL//PpkrsmCPuad1wziz1tck2U15J0IXA01/lwrq/J3VD7g==
+
 "@vue/babel-helper-vue-jsx-merge-props@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@vue/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-1.2.1.tgz#31624a7a505fb14da1d58023725a4c5f270e6a81"
@@ -2018,6 +2028,11 @@
   version "6.0.0-beta.20.1"
   resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.0.0-beta.20.1.tgz#5b499647e929c35baf2a66a399578f9aa4601142"
   integrity sha512-R2rfiRY+kZugzWh9ZyITaovx+jpU4vgivAEAiz80kvh3yviiTU3CBuGuyWpSwGz9/C7TkSWVM/FtQRGlZ16n8Q==
+
+"@vue/devtools-api@^6.0.0-beta.15":
+  version "6.0.0-beta.21.1"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.0.0-beta.21.1.tgz#f1410f53c42aa67fa3b01ca7bdba891f69d7bc97"
+  integrity sha512-FqC4s3pm35qGVeXRGOjTsRzlkJjrBLriDS9YXbflHLsfA9FrcKzIyWnLXoNm+/7930E8rRakXuAc2QkC50swAw==
 
 "@vue/eslint-config-prettier@^6.0.0":
   version "6.0.0"
@@ -9476,6 +9491,13 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+
+vee-validate@^4.5.7:
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-4.5.7.tgz#457f1621cf978a3f7eac4866faa480e020981867"
+  integrity sha512-EcpvOikBP5LlRIKwULfwRDeyIaERuOJztZUPWRmSIeWpeQWD6hs9qQ8A3CmVVteqEohbUM07gV/ea8lPXCfCJQ==
+  dependencies:
+    "@vue/devtools-api" "^6.0.0-beta.15"
 
 vendors@^1.0.0:
   version "1.0.4"

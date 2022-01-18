@@ -14,6 +14,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "@hennge/vue3-pagination": "^1.0.17",
+    "@vee-validate/i18n": "^4.5.7",
+    "@vee-validate/rules": "^4.5.7",
     "click-outside-vue3": "^4.0.1",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.7",
@@ -21,6 +23,7 @@
     "lodash": "^4.17.21",
     "nprogress": "^0.2.0",
     "uuid": "^8.3.2",
+    "vee-validate": "^4.5.7",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
