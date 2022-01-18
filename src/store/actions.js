@@ -44,9 +44,7 @@ export default {
     commit("clearAllUnsubscribes");
   },
   fetchItems({ dispatch }, { ids, resource, emoji, onSnapshot = null }) {
-    if (!ids) {
-      return;
-    }
+    ids = ids || [];
 
     // resolves all promises before returning the array
     return Promise.all(ids.map((id) => dispatch("fetchItem", { id, resource, emoji, onSnapshot })));
